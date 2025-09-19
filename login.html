@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - Finance Helper Agent</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(120deg, rgba(224,231,255,0.85) 0%, rgba(144,202,249,0.85) 100%), url('background.png') center center/cover no-repeat fixed;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.18;
+      background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+    }
+    .login-container, .footer {
+      position: relative;
+      z-index: 1;
+    }
+    .login-container {
+      background: rgba(0,0,0,0.18);
+      padding: 28px 32px;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+      max-width: 350px;
+      width: 100%;
+    }
+    .login-container h2 {
+      margin-top: 0;
+      margin-bottom: 18px;
+      text-align: center;
+      color: #ffd54f;
+    }
+    .login-container label {
+      margin-top: 10px;
+      font-weight: normal;
+    }
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 4px;
+      margin-bottom: 16px;
+      border: none;
+      border-radius: 6px;
+      background: #ede7f6;
+      color: #333;
+    }
+    .login-container button {
+      width: 100%;
+      background: #ffd54f;
+      color: #3e2723;
+      border: none;
+      border-radius: 20px;
+      padding: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    .login-container button:hover {
+      background: #ffca28;
+    }
+    .footer {
+      margin-top: 40px;
+      padding: 18px 0 0 0;
+      text-align: center;
+      color: #eee;
+      font-size: 1em;
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container" id="signupContainer">
+    <h2>Sign Up</h2>
+    <form id="signupForm" autocomplete="off">
+      <label for="signup-username">Username</label>
+      <input type="text" id="signup-username" name="signup-username" required />
+      <label for="signup-password">Password</label>
+      <input type="password" id="signup-password" name="signup-password" required />
+      <label for="signup-confirm">Confirm Password</label>
+      <input type="password" id="signup-confirm" name="signup-confirm" required />
+      <button type="submit">Sign Up</button>
+      <p style="text-align:center;margin-top:10px;font-size:0.95em;">
+        Already have an account? <a href="#" id="showLogin" style="color:#ffd54f;">Login</a>
+      </p>
+    </form>
+  </div>
+  <div class="login-container" id="loginContainer" style="display:none;">
+    <h2>Login</h2>
+    <form id="loginForm" autocomplete="off">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required />
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required />
+      <button type="submit">Login</button>
+      <p style="text-align:center;margin-top:10px;font-size:0.95em;">
+        Don't have an account? <a href="#" id="showSignup" style="color:#ffd54f;">Sign Up</a>
+      </p>
+    </form>
+  </div>
+  <div class="footer">
+    &copy; 2025 Finance Helper Agent. All rights reserved.
+  </div>
+  <script>
+    // Toggle between signup and login
+    document.getElementById('showLogin').onclick = function(e) {
+      e.preventDefault();
+      document.getElementById('signupContainer').style.display = 'none';
+      document.getElementById('loginContainer').style.display = '';
+    };
+    document.getElementById('showSignup').onclick = function(e) {
+      e.preventDefault();
+      document.getElementById('loginContainer').style.display = 'none';
+      document.getElementById('signupContainer').style.display = '';
+    };
+    // Demo sign up: after sign up, show login
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const user = document.getElementById('signup-username').value;
+      const pass = document.getElementById('signup-password').value;
+      const conf = document.getElementById('signup-confirm').value;
+      if(!user || !pass || !conf) {
+        alert('Please fill all fields.');
+        return;
+      }
+      if(pass !== conf) {
+        alert('Passwords do not match.');
+        return;
+      }
+      alert('Sign up successful! Please log in.');
+      document.getElementById('signupContainer').style.display = 'none';
+      document.getElementById('loginContainer').style.display = '';
+    });
+    // Demo login: redirect
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      if(username && password) {
+        window.location.href = 'index.html';
+      } else {
+        alert('Please enter username and password.');
+      }
+    });
+  </script>
+</body>
+</html>
